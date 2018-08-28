@@ -1,0 +1,22 @@
+vuex是vue.js应用程序的状态（数据）管理库，vuex可以通过vuex install --save 命令直接下载，当程序需要引入vuex时，需要把vuex当作vue的一个组件引入。
+首先建一个专属vuex的文件夹命名为store，在里面import引入vue和vuex,随后使用Vue.use(Vuex)将vuex声明为组建，然后再main.js中引入store并在component中
+注册store，当完成这些步骤后，每个组件都可以使用this.$store来调用vuex的数据，在store文件夹中创建store.js,将公用的数据存储在state中，
+     store.js:  let store = new Vuex.Store({
+        state: {
+          count:10
+        }
+     })
+     export default store  //最后将store暴露出去
+ 
+每个需要使用state数据的组建都可以通过this.$store.state.count来调用,组件中data的引入的数据专属于组件，不会跟随vuex改变。
+
+当组件引用vuex的数据，并且要改变数据时，就需要使用到mutations
+  先将数据的变化规律写在mutations中
+     store.js: mutations{
+         add(state，payment) {//payment是参数（形参）
+           //mutate state
+           state++
+         }
+     } 
+   当组件的模板中写好方法，要在发生事件时改变vuex中的数据时，通过commit()方法来调用mutations的方法，
+    store.commit('add',{data})//后面的对象是传入的参数
